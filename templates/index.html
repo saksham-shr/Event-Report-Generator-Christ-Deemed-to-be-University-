@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Activity Report Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f9;
+        }
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        header img {
+            height: 70px;
+            margin-right: 15px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        h2 {
+            border-bottom: 2px solid #ccc;
+            padding-bottom: 5px;
+            margin-top: 20px;
+            color: #555;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        textarea {
+            resize: vertical;
+            height: 100px;
+        }
+        .file-upload {
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 4px;
+            background-color: #f9f9f9;
+        }
+        .submit-btn {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+            width: 100%;
+        }
+        .submit-btn:hover {
+            background-color: #0056b3;
+        }
+        .error {
+            color: red;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        .small {
+            font-size: 0.9rem;
+            color: #444;
+            margin-top: 6px;
+        }
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 0.9rem;
+            color: #555;
+            border-top: 1px solid #ddd;
+            padding-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header with Christ Logo -->
+        <header style="
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 25px;
+    border-bottom: 2px solid #ccc;
+    padding-bottom: 10px;
+">
+    <img src="{{ url_for('static', filename='christ_logo.png') }}" alt="Christ University Logo" style="height:90px; display:block; margin:0 auto 10px auto;">
+
+    <h1 style="
+        flex-grow: 1;
+        text-align: center;
+        margin: 0;
+        margin-right: 100px;
+        font-weight: 600;
+        color: #333;
+    ">
+        Activity Report Generator
+    </h1>
+</header>
+
+        {% if error %}
+        <p class="error">{{ error }}</p>
+        {% endif %}
+
+        <form method="POST" enctype="multipart/form-data">
+            <!-- 1. Header Information -->
+            <h2>1. Header Information</h2>
+            <div class="form-group">
+                <label for="university">University/Institution Name</label>
+                <input type="text" id="university" name="university" value="CHRIST (Deemed to be University), Bangalore" required>
+            </div>
+            <div class="form-group">
+                <label for="school">School Name</label>
+                <input type="text" id="school" name="school" value="School of Engineering and Technology" required>
+            </div>
+            <div class="form-group">
+                <label for="department">Department Name</label>
+                <input type="text" id="department" name="department" value="Department of Computer Science and Engineering" required>
+            </div>
+
+            <!-- 2. General Information -->
+            <h2>2. General Information</h2>
+            <div class="form-group">
+                <label for="Type of Activity">Type of Activity</label>
+                <input type="text" id="Type of Activity" name="Type of Activity" value="Workshop" required>
+            </div>
+            <div class="form-group">
+                <label for="Title of the Activity">Title of the Activity</label>
+                <input type="text" id="Title of the Activity" name="Title of the Activity" value="Cardio-Pulmonary Resuscitation (CPR) for Her: Empowering Women with Lifesaving Skills" required>
+            </div>
+            <div class="form-group">
+                <label for="Date/s">Date/s</label>
+                <input type="text" id="Date/s" name="Date/s" value="26th July 2024" required>
+            </div>
+            <div class="form-group">
+                <label for="Time">Time</label>
+                <input type="text" id="Time" name="Time" value="3:00 – 4:00 PM" required>
+            </div>
+            <div class="form-group">
+                <label for="Venue">Venue</label>
+                <input type="text" id="Venue" name="Venue" value="Seminar Hall, Block 2, Floor 3" required>
+            </div>
+            <div class="form-group">
+                <label for="Collaboration/Sponsor (if any)">Collaboration/Sponsor (if any)</label>
+                <input type="text" id="Collaboration/Sponsor (if any)" name="Collaboration/Sponsor (if any)" value="Nil">
+            </div>
+
+            <!-- 3. Speaker/Guest/Presenter Details -->
+            <h2>3. Speaker/Guest/Presenter Details</h2>
+            <div class="form-group">
+                <label for="Name">Speaker Name</label>
+                <input type="text" id="Name" name="Name" value="Dr. Seela Sara Mathew" required>
+            </div>
+            <div class="form-group">
+                <label for="Title/Position">Title/Position</label>
+                <input type="text" id="Title/Position" name="Title/Position" value="Medical Officer" required>
+            </div>
+            <div class="form-group">
+                <label for="Organization">Organization</label>
+                <input type="text" id="Organization" name="Organization" value="Christ (Deemed to be) University" required>
+            </div>
+            <div class="form-group">
+                <label for="Title of Presentation">Title of Presentation</label>
+                <input type="text" id="Title of Presentation" name="Title of Presentation" value="Cardio-Pulmonary Resuscitation (CPR) for Her: Empowering Women with Lifesaving Skills" required>
+            </div>
+
+            <!-- 4. Participants Profile -->
+            <h2>4. Participants Profile</h2>
+            <div class="form-group">
+                <label for="Type of Participants">Type of Participants</label>
+                <input type="text" id="Type of Participants" name="Type of Participants" value="Faculty Members" required>
+            </div>
+            <div class="form-group">
+                <label for="No. of Participants">No. of Participants</label>
+                <input type="text" id="No. of Participants" name="No. of Participants" value="13" required>
+            </div>
+
+            <!-- 5. Synopsis of the Activity -->
+            <h2>5. Synopsis of the Activity (Description)</h2>
+            <div class="form-group">
+                <label for="highlights">Highlights of the Activity (Description)</label>
+                <textarea id="highlights" name="highlights" required>Empowering Women: The program focuses on teaching women the critical life-saving skill of CPR, empowering them to confidently respond in emergency situations.</textarea>
+            </div>
+            <div class="form-group">
+                <label for="key_takeaways">Key Takeaways</label>
+                <textarea id="key_takeaways" name="key_takeaways" required>CPR Training: Participants received hands-on training in CPR techniques, including chest compressions and rescue breathing.</textarea>
+            </div>
+            <div class="form-group">
+                <label for="summary">Summary of the Activity</label>
+                <textarea id="summary" name="summary" required>The activity "Cardio-Pulmonary Resuscitation (CPR) for Her: Empowering Women with Lifesaving Skills" was designed to provide women with essential life-saving skills through hands-on CPR training.</textarea>
+            </div>
+            <div class="form-group">
+                <label for="follow_up_plan">Follow-up plan</label>
+                <textarea id="follow_up_plan" name="follow_up_plan" required>Set up occasional practice sessions with updated simulated scenarios to reinforce learning.</textarea>
+            </div>
+
+            <!-- 6. Report Prepared By -->
+            <h2>6. Report Prepared By</h2>
+            <div class="form-group">
+                <label for="Name_Prepared">Name(s)</label>
+                <input type="text" id="Name_Prepared" name="Name_Prepared" value="Dr Sujatha A K and Dr Deepa Yogish" required>
+            </div>
+            <div class="form-group">
+                <label for="Designation/Title_Prepared">Designation/Title</label>
+                <input type="text" id="Designation/Title_Prepared" name="Designation/Title_Prepared" value="Associate Professor" required>
+            </div>
+
+            <!-- 7. Speaker Profile Image -->
+            <h2>7. Speaker Profile Image (Optional)</h2>
+            <div class="form-group file-upload">
+                <label for="speaker_image">Upload Speaker's Photo (JPG, PNG)</label>
+                <input type="file" id="speaker_image" name="speaker_image" accept="image/*">
+            </div>
+            <div class="form-group">
+                <label for="profile_text">Speaker Profile Text</label>
+                <textarea id="profile_text" name="profile_text">Dr. Seela brings a wealth of experience and expertise to our event today.</textarea>
+            </div>
+
+            <!-- 8. Activity Photos -->
+            <h2>8. Activity Photos (Optional, up to 5)</h2>
+            <div class="form-group file-upload">
+                <label for="caption">Photo Caption</label>
+                <input type="text" id="caption" name="caption" value="Photos of the activity">
+            </div>
+            <div class="form-group file-upload">
+                <label for="photo_1">Photo 1</label>
+                <input type="file" id="photo_1" name="photo_1" accept="image/*">
+            </div>
+
+            <!-- 9. Attendance List -->
+            <h2>9. Attendance List</h2>
+            <div class="small">Paste names or upload Excel file</div>
+            <div class="form-group">
+                <label for="attendance_text">Enter names (manual)</label>
+                <textarea id="attendance_text" name="attendance_text"></textarea>
+            </div>
+            <div class="form-group file-upload">
+                <label for="attendance_excel">Upload Attendance Excel (.xlsx)</label>
+                <input type="file" id="attendance_excel" name="attendance_excel" accept=".xlsx">
+            </div>
+
+            <!-- 10. Flyer, Approval, Impact -->
+            <h2>10. Flyer of the Event (Image only)</h2>
+            <div class="form-group file-upload">
+                <input type="file" id="flyer" name="flyer" accept="image/*">
+            </div>
+
+            <h2>11. Approval Letter (Image only)</h2>
+            <div class="form-group file-upload">
+                <input type="file" id="approval_letter" name="approval_letter" accept="image/*">
+            </div>
+
+            <h2>12. Impact Analysis Report (Image only)</h2>
+            <div class="form-group file-upload">
+                <input type="file" id="impact_analysis_report" name="impact_analysis_report" accept="image/*">
+            </div>
+
+            <button type="submit" class="submit-btn">Generate PDF Report</button>
+        </form>
+
+        <!-- Footer -->
+        <footer>
+            <p>&copy; 2025 OneStop Dev Pvt Ltd | Incubated in Christ Incubation Center</p>
+        </footer>
+    </div>
+</body>
+</html>
